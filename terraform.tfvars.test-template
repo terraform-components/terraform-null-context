@@ -1,0 +1,8 @@
+context = {
+  namespace   = "foo"
+  environment = "bar"
+  location_abbreviations = {
+    us        = "us"
+    us-west-1 = "usw1"
+  }
+}
