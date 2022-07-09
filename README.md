@@ -1,20 +1,52 @@
-TBD: automated tests
+# Terraform Context
+
+*TBD: automated tests*
 
 The default convention is
 
 {namespace}-{environment}-{name(s)}-{location}
 
-attributes are however not handed in, as the output of is supposed to be used by others, not inected and depended on by others as code.
-
 we share data between components, not code.
 
-modules will depend on the subset of information they need from this for their naming.
-
-this is not as flexible as some other approaches, but a lot less invasive.
+Therefore this may seem a bit overkill in what it produces, but that is a small price to pay if that means not depending on code, but just asking for certain conditions to be met. This naturally has its downsides, like everything.
+Modules will depend on the subset of information they need from this for their naming.
+This is not as flexible as some other approaches, but a lot less invasive.
 
 It will require to have smaller modules that do contained things, like expecting not to create global, regional or zonal resources in the same module. 
 However that is usually not a good idea anyway.
 Some things do not have a single solution and my aim here is to stay far away from becoming too much of a framework.
+
+### example output
+
+```hcl
+context = {
+  "delimiter" = tostring(null)
+  "environment" = "bar"
+  "location_abbreviations" = tomap({
+    "us" = "us"
+    "us-west-1" = "usw1"
+  })
+  "namespace" = "foo"
+  "order" = tolist(null) /* of string */
+}
+format = {
+  "global" = {
+    "name1" = "foo-bar-%s"
+    "name2" = "foo-bar-%s-%s"
+    "name3" = "foo-bar-%s-%s-%s"
+  }
+  "us" = {
+    "name1" = "foo-bar-%s-us"
+    "name2" = "foo-bar-%s-%s-us"
+    "name3" = "foo-bar-%s-%s-%s-us"
+  }
+  "us-west-1" = {
+    "name1" = "foo-bar-%s-usw1"
+    "name2" = "foo-bar-%s-%s-usw1"
+    "name3" = "foo-bar-%s-%s-%s-usw1"
+  }
+}
+```
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
