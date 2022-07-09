@@ -5,9 +5,15 @@ locals {
     order                  = ["namespace", "environment", "name", "location"]
     namespace              = null
     environment            = null
-    location_abbreviations = {}
+    location_abbreviations = var.location_abbreviations
     delimiter              = "-"
   }
+}
+
+variable "location_abbreviations" {
+  type        = map(string)
+  description = "default values for location abbreviations"
+  default     = {}
 }
 
 variable "context" {

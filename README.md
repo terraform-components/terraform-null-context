@@ -96,7 +96,15 @@ object({
 
 ## Optional Inputs
 
-No optional inputs.
+The following input variables are optional (have default values):
+
+### <a name="input_location_abbreviations"></a> [location\_abbreviations](#input\_location\_abbreviations)
+
+Description: default values for location abbreviations
+
+Type: `map(string)`
+
+Default: `{}`
 
 ## Outputs
 
